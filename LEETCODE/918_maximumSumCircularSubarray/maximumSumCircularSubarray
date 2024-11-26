@@ -1,0 +1,31 @@
+class Solution {
+    public int maxKadane(int[]nums,int n){
+        int sum=nums[0];
+        int maxSum=nums[0];
+        for(int i=1;i<n;i++){
+            sum= Math.max(sum+nums[i],nums[i]);
+            maxSum=Math.max(maxSum,sum);
+        }
+        return maxSum;
+    }
+     public int minKadane(int[]nums,int n){
+        int sum=nums[0];
+        int minSum=nums[0];
+        for(int i=1;i<n;i++){
+            sum= Math.min(sum+nums[i],nums[i]);
+            minSum=Math.min(minSum,sum);
+        }
+        return minSum;
+    }
+    public int maxSubarraySumCircular(int[] nums) {
+        int n=nums.length;
+        int totalSum=0; 
+        for(int num:nums) totalSum+=num;
+        int minSum=minKadane(nums,n);
+        int maxSum=maxKadane(nums,n);
+        int circularSum= totalSum-minSum;
+        if(maxSum>0) return Math.max(maxSum,circularSum);
+        return maxSum;
+        
+    }
+}
