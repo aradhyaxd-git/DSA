@@ -109,3 +109,62 @@ class Solution {
         return curr[m];
     }
 }
+
+
+
+//*INORDER TO PRINT ALL OF THE LCS */
+class Solution {
+    public List<String> all_longest_common_subsequences(String s, String t) {
+        // Code here
+        char s1[]= s.toCharArray();
+        char s2[]= t.toCharArray();
+        int n= s1.length,m=s2.length;
+        
+        int dp[][]= new int[n+1][m+1];
+        
+        for(int i=0;i<n;i++) dp[i][0]=0;
+        for(int j=0;j<m;j++) dp[0][j]=0;
+        
+        for(int i=1;i<n+1;i++){
+            for(int j=1;j<m+1;j++){
+                if(s1[i-1]==s2[j-1])
+                    dp[i][j]= 1+ dp[i-1][j-1];
+                else 
+                    dp[i][j]= Math.max(dp[i][j-1],dp[i-1][j]);
+            }
+        }
+    
+        Set<String> result= new HashSet<>();
+        backtrack(s1, s2, dp, n, m, new StringBuilder(), result);
+        List<String> resultList = new ArrayList<>(result);
+        Collections.sort(resultList);
+        return resultList;
+    }
+    
+     private void backtrack(char[] s1, char[] s2, int[][] dp, int i, int j, StringBuilder current, Set<String> result) {
+        // Base case: reached the start of either string
+        if (i == 0 || j == 0) {
+            result.add(current.reverse().toString());
+            current.reverse(); // Restore original order for further backtracking
+            return;
+        }
+        
+        // Case 1: Characters match → part of LCS
+        if (s1[i - 1] == s2[j - 1]) {
+            current.append(s1[i - 1]);
+            backtrack(s1, s2, dp, i - 1, j - 1, current, result);
+            current.deleteCharAt(current.length() - 1); // Backtrack
+        }
+        // Case 2: Characters don't match → explore both paths if they have equal LCS lengths
+        else if (dp[i - 1][j] == dp[i][j - 1]) {
+            backtrack(s1, s2, dp, i - 1, j, current, result);
+            backtrack(s1, s2, dp, i, j - 1, current, result);
+        }
+        // Case 3: Only one path leads to LCS
+        else if (dp[i - 1][j] > dp[i][j - 1]) {
+            backtrack(s1, s2, dp, i - 1, j, current, result);
+        } else {
+            backtrack(s1, s2, dp, i, j - 1, current, result);
+        }
+    }
+}
