@@ -36,3 +36,15 @@ class Solution {
         return isSorted(ans);
     }
 }
+
+
+
+class Solution {
+    public boolean isValidBST(TreeNode root) {
+        return checkBST(root,Long.MIN_VALUE,Long.MAX_VALUE);
+    }
+    public boolean checkBST(TreeNode root,long min, long max){
+        if(root==null) return true;
+        return min<root.val && root.val<max && checkBST(root.left,min,root.val) && checkBST(root.right,root.val,max);
+    }
+}
