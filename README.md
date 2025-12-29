@@ -31,7 +31,7 @@ Each folder represents a **DSA topic**, containing multiple solved **LeetCode pr
 ---
 
 ## 🚀 My LeetCode Progress  
-✅ **500+ problems solved on LeetCode**  
+✅ **1000+ problems solved on LeetCode**  
 ✅ **Following Striver’s A2Z DSA Sheet**  
 ✅ **Solving LeetCode Problem of the Day (POTD)**  
 ✅ **Daily consistency in problem-solving**  
